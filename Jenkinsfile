@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ahmedbenameur/my_application.git'
+                git branch: 'main', url: 'https://github.com/ahmedbenameur/cc.git'
                 sh 'ls -l'  // Print workspace contents
             }
         }
