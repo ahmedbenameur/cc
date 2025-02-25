@@ -4,7 +4,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     environment {
-        // Define SonarQube server URL and token
         SONAR_HOST_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = 'sqp_d499aa95fc6b68d194a0f962b8d771bde497f245'
     }
@@ -13,7 +12,7 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/ahmedbenameur/cc.git'
                 sh 'cp /var/jenkins_home/workspace/pom.xml .'
-                sh 'pwd && ls -lR'  // Print workspace contents
+                
             }
         }
 
@@ -26,7 +25,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    // Install SonarQube Scanner if not already installed
+                    // Download and install SonarQube Scanner
                     sh '''
                         if ! command -v sonar-scanner &> /dev/null; then
                             echo "SonarQube Scanner not found. Installing..."
@@ -34,6 +33,11 @@ pipeline {
                             unzip sonar-scanner-cli-5.0.1.3006-linux.zip
                             export PATH=$PATH:$(pwd)/sonar-scanner-5.0.1.3006-linux/bin
                         fi
+                    '''
+                    // Verify SonarQube Scanner installation
+                    sh '''
+                        echo "PATH: $PATH"
+                        which sonar-scanner || echo "SonarQube Scanner not found in PATH"
                     '''
                     // Run SonarQube Scanner
                     sh '''
