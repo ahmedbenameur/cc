@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/ahmedbenameur/cc.git'
-                sh 'ls -l'  // Print workspace contents
+               sh 'pwd && ls -lR'  // Print workspace contents
             }
         }
 
