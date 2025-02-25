@@ -12,7 +12,7 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/ahmedbenameur/cc.git'
                 sh 'cp /var/jenkins_home/workspace/pom.xml .'
-                
+                sh 'pwd && ls -lR'  // Print workspace contents
             }
         }
 
@@ -30,7 +30,7 @@ pipeline {
                         if ! command -v sonar-scanner &> /dev/null; then
                             echo "SonarQube Scanner not found. Installing..."
                             wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-                            unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+                            unzip -o -q sonar-scanner-cli-5.0.1.3006-linux.zip
                             export PATH=$PATH:$(pwd)/sonar-scanner-5.0.1.3006-linux/bin
                         fi
                     '''
