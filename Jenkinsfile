@@ -12,7 +12,7 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/ahmedbenameur/cc.git'
                 sh 'cp /var/jenkins_home/workspace/pom.xml .'
-                sh 'pwd && ls -lR'  // Print workspace contents
+                sh 'pwd '  // Print workspace contents
             }
         }
 
